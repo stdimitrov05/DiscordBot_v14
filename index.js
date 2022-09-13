@@ -27,7 +27,16 @@ client.on('messageCreate' , (msg) =>{
         case "hello" :
             msg.reply(`Hello World ${msg.author.tag} !`)
             break
-        case "age" :
+        case "singup" :
+            const password = msg.content.split(' ')
+            password.shift()
+            password.filter(element=>{
+                element !== " " && element !== undefined
+            })
+
+
+            console.log(password)
+
             break
         default : msg.reply(`Status error: ` + `Command not found \n error: ` +  ERRORS_COMMAND_NOT_FOUND)
             break
