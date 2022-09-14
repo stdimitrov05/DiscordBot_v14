@@ -1,8 +1,8 @@
 const  {ERRORS_COMMAND_NOT_FOUND, ERRORS_UNABLE_CREATE_USER} = require('./dev/errors')
-let fs = require('fs');
 const {Client, GatewayIntentBits, time} = require('discord.js');
 const {SingUp} = require("./modules/SingUp");
 const {randomPassword} = require("./modules/Classes/randomPassword");
+const {reportingLog} = require("./modules/reportingLog");
 const client = new Client({intents: [GatewayIntentBits.DirectMessages,
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildBans,
@@ -38,13 +38,11 @@ client.on('messageCreate' , (msg) =>{
             if (acountUser === 1) {
                 msg.author.send(`Hello ` + msg.author.username + "!\nYour password: " + password)
             }else{
-                fs.writeFile('./log/debug.log',new Date() +` Status error: ` + `User not create error: ` +  ERRORS_UNABLE_CREATE_USER  , (err)=>{
-                    if (err) return console.log(err);
-                } )
+                  reportingLog(ERRORS_UNABLE_CREATE_USER)
             }
 
             break
-        default : msg.reply(`Status error: ` + `Command not found \n error: ` +  ERRORS_COMMAND_NOT_FOUND)
+        default : reportingLog(ERRORS_COMMAND_NOT_FOUND)
             break
     }
 
