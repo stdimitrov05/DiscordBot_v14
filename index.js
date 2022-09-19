@@ -33,9 +33,8 @@ client.on('messageCreate' , (msg) =>{
             let username = msg.author.username;
             let password = randomPassword(5)
 
-             let acountUser =  SingUp(username,password)
 
-            if (acountUser === 1) {
+            if (SingUp(username,password)) {
                 msg.author.send(`Hello ` + msg.author.username + "!\nYour password: " + password)
             }else{
                   reportingLog(ERRORS_UNABLE_CREATE_USER)
