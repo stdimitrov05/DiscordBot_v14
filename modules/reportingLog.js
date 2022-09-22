@@ -8,9 +8,9 @@ module.exports.reportingLog = (err) => {
 }
 
 // Fatal error
-module.exports.fatalErr = (err) => {
+module.exports.fatalErr = (err , more) => {
     let fs = require('fs');
-    fs.appendFile(__dirname +'/log/debug.log', new Date() + ` Fatal errors:  ${err} ` + "\n", (err) => {
+    fs.appendFile(__dirname +'/log/debug.log', new Date() + ` Fatal errors:  ${err} ` + "\n " + more +"\n", (err) => {
         if (err) return console.log(err);
     })
 }

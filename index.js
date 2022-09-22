@@ -1,8 +1,8 @@
-const  {ERRORS_COMMAND_NOT_FOUND, ERRORS_UNABLE_CREATE_USER} = require('./dev/errors')
+const  {ERRORS_COMMAND_NOT_FOUND} = require('./dev/errors')
 const {Client, GatewayIntentBits, time} = require('discord.js');
-const {SingUp} = require("./modules/SingUp");
-const {randomPassword} = require("./modules/Classes/randomPassword");
 const {reportingLog} = require("./modules/reportingLog");
+const {SingUpAction} = require("./modules/Classes/singup");
+
 const client = new Client({intents: [GatewayIntentBits.DirectMessages,
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildBans,
@@ -30,16 +30,7 @@ client.on('messageCreate' , (msg) =>{
             break
 
         case "singup" :
-            let username = msg.author.username;
-            let password = randomPassword(5)
-
-
-            if (SingUp(username,password)) {
-                msg.author.send(`Hello ` + msg.author.username + "!\nYour password: " + password)
-            }else{
-                  reportingLog(ERRORS_UNABLE_CREATE_USER)
-            }
-
+           SingUpAction(client,msg)
             break
         default : reportingLog(ERRORS_COMMAND_NOT_FOUND)
             break
